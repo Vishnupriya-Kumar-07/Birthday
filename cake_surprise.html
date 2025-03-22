@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Cake</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ffb6c1, #ffd1dc); /* Lighter gradient */
+      display: flex;
+      flex-direction: column; /* Stack elements vertically */
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      margin: 0;
+    }
+    h1 {
+      font-size: 36px;
+      color: #ff85a2; /* Lighter pink */
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .cake-container {
+      background: linear-gradient(135deg, #ff85a2, #ffb6c1); /* Lighter gradient */
+      padding: 40px;
+      border-radius: 30px;
+      border: 4px solid #ffb6c1; /* Lighter border */
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2); /* Softer shadow */
+      width: 400px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      animation: scaleUp 0.5s ease-out;
+    }
+    @keyframes scaleUp {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    /* Decorative overlay */
+    .cake-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 10.1%);
+      background-size: 20px 20px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .cake {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .layer {
+      width: 100%;
+      background-color: #8B4513; /* Brown color for cake layers */
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    }
+    .layer-1 {
+      height: 50px; /* Bottom layer */
+      margin-bottom: 10px;
+    }
+    .layer-2 {
+      height: 40px; /* Middle layer */
+      margin-bottom: 10px;
+    }
+    .layer-3 {
+      height: 30px; /* Top layer */
+    }
+    .candle {
+      position: absolute;
+      bottom: 100%;
+      width: 10px;
+      height: 40px;
+      background-color: #fff8e7; /* Light cream color */
+      border-radius: 5px 5px 0 0;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .candle:hover {
+      transform: scale(1.1);
+    }
+    .flame {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 15px;
+      background-color: #ffcccb; /* Light red for flame */
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: flicker 0.1s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.1); }
+    }
+    .blown-out {
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    /* Confetti Animation */
+    .confetti {
+      position: absolute;
+      top: -10%;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    /* Caption Box */
+    .caption {
+      margin-top: 20px; /* Add space between cake and caption */
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      font-size: 18px;
+      color: #ff85a2; /* Lighter pink */
+      z-index: 1000;
+      animation: float 3s ease-in-out infinite;
+    }
+    /* Next Surprise Button */
+    .next-surprise-button {
+      margin-top: 20px; /* Add space between caption and button */
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #ffb6c1, #ffd1dc); /* Lighter gradient */
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .next-surprise-button:hover {
+      background: linear-gradient(135deg, #ffa5b0, #ffc0cb); /* Lighter gradient */
+      transform: scale(1.05);
+    }
+    /* Pop-up Box */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+      text-align: center;
+      z-index: 1000;
+      animation: slideIn 0.5s ease-out;
+    }
+    @keyframes slideIn {
+      0% { transform: translate(-50%, -60%); opacity: 0; }
+      100% { transform: translate(-50%, -50%); opacity: 1; }
+    }
+    .popup h2 {
+      font-size: 24px;
+      color: #ff85a2; /* Lighter pink */
+      margin-bottom: 20px;
+    }
+    .popup button {
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #ffb6c1, #ffd1dc); /* Lighter gradient */
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 10px;
+    }
+    .popup button:hover {
+      background: linear-gradient(135deg, #ffa5b0, #ffc0cb); /* Lighter gradient */
+      transform: scale(1.05);
+    }
+    /* Music Pop-up */
+    .music-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #ffb6c1, #ffd1dc); /* Lighter gradient */
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+      text-align: center;
+      z-index: 1000;
+      animation: slideIn 0.5s ease-out;
+    }
+    .music-popup h2 {
+      font-size: 28px;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    }
+    .music-popup audio {
+      margin-top: 20px;
+      border-radius: 30px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    }
+    .music-popup button {
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #ffb6c1, #ffd1dc); /* Lighter gradient */
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+    .music-popup button:hover {
+      background: linear-gradient(135deg, #ffa5b0, #ffc0cb); /* Lighter gradient */
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>🎂 Birthday Cake 🎂</h1>
+  <div class="cake-container">
+    <div class="cake">
+      <div class="layer layer-1"></div>
+      <div class="layer layer-2"></div>
+      <div class="layer layer-3"></div>
+      <div class="candle" style="left: 20%;" onclick="blowOutCandle(this)">
+        <div class="flame"></div>
+      </div>
+      <div class="candle" style="left: 40%;" onclick="blowOutCandle(this)">
+        <div class="flame"></div>
+      </div>
+      <div class="candle" style="left: 60%;" onclick="blowOutCandle(this)">
+        <div class="flame"></div>
+      </div>
+      <div class="candle" style="left: 80%;" onclick="blowOutCandle(this)">
+        <div class="flame"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Caption Box -->
+  <div class="caption">
+    Blow all the candles! 🎂
+  </div>
+
+  <!-- Next Surprise Button -->
+  <button class="next-surprise-button" onclick="window.location.href = 'birthday-note.html'">
+    Next Surprise
+  </button>
+
+  <!-- First Pop-up -->
+  <div class="popup" id="firstPopup">
+    <h2>🎉 Happy Birthday! 🎉</h2>
+    <button onclick="showMusicPopup()">Click for Music</button>
+  </div>
+
+  <!-- Music Pop-up -->
+  <div class="music-popup" id="musicPopup">
+    <h2>🎶Sang Rahiyo🎶</h2>
+    <audio controls autoplay>
+      <source src="c:\Users\vishn\Downloads\Sang-Rahiyo.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <button onclick="closeMusicPopup()">Close</button>
+  </div>
+
+  <script>
+    function blowOutCandle(candle) {
+      const flame = candle.querySelector('.flame');
+      flame.classList.add('blown-out');
+      setTimeout(() => {
+        flame.remove();
+        checkAllCandles();
+      }, 500);
+    }
+
+    function checkAllCandles() {
+      const flames = document.querySelectorAll('.flame');
+      if (flames.length === 0) {
+        showFirstPopup();
+      }
+    }
+
+    function showFirstPopup() {
+      const firstPopup = document.getElementById('firstPopup');
+      firstPopup.style.display = 'block';
+    }
+
+    function showMusicPopup() {
+      const firstPopup = document.getElementById('firstPopup');
+      const musicPopup = document.getElementById('musicPopup');
+      firstPopup.style.display = 'none';
+      musicPopup.style.display = 'block';
+    }
+
+    function closeMusicPopup() {
+      const musicPopup = document.getElementById('musicPopup');
+      musicPopup.style.display = 'none';
+    }
+
+    // Confetti creation
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+      const types = ["🎉", "🎊", "✨", "🎈", "🎁", "💖", "💝", "🎀"];
+      confetti.textContent = types[Math.floor(Math.random() * types.length)];
+      confetti.style.fontSize = Math.random() * 30 + 20 + "px";
+
+      document.body.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    }
+
+    setInterval(createConfetti, 200);
+  </script>
+</body>
+</html>
