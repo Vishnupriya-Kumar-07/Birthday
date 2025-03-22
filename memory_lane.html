@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lane</title>
+    <style>
+        /* Stylish Memory Lane Heading */
+        .memory-heading {
+            font-size: 70px;
+            font-weight: bold;
+            text-align: center;
+            margin: 40px 0 20px 0;
+            background: linear-gradient(90deg, #ff00ff, #ff7300, #ffcc00, #00ffcc, #007bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        /* Smooth Glowing Effect */
+        @keyframes glow {
+            0% { text-shadow: 0px 0px 5px rgba(255, 0, 255, 0.5); }
+            100% { text-shadow: 0px 0px 20px rgba(255, 0, 255, 0.9); }
+        }
+
+        /* Page Background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Message Box */
+        .message-box {
+            max-width: 600px;
+            background: white;
+            padding: 25px;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(255, 20, 147, 0.3);
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Slideshow Container */
+        .slideshow-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Image Box */
+        .image-box {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 5px solid #222; /* Dark Border */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            width: 250px;
+            height: 180px;
+            background: #f0f0f0;
+        }
+
+        /* Hover Effect */
+        .image-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Image */
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Hidden Caption, Visible on Hover */
+        .caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-box:hover .caption {
+            opacity: 1;
+        }
+
+        /* Next Surprise Button */
+        .next-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #ff4081, #ff9800);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            text-decoration: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .next-button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, #ff9800, #ff4081);
+        }
+
+        /* Falling Confetti and Emojis */
+        .falling-item {
+            position: absolute;
+            top: -10%;
+            font-size: 24px;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="memory-heading">Memory Lane</h1>
+
+    <!-- Birthday Message Box -->
+    <div class="message-box">
+        🎀Happy Birthday!!🎉  
+        Wishes to the most charming, incredible and the constant one!!❤️🥳  
+    </div>
+
+    <!-- Slideshow Section -->
+    <div class="slideshow-container">
+        <div class="image-box">
+            <img src="c:/Users/vishn/Pictures/Camera Roll/123/WhatsApp Image 2025-03-20 at 19.41.48_a7e4235c.jpg" alt="Memory 1">
+            <div class="caption">✨A day full of laughter and joy!✨</div>
+        </div>
+        <div class="image-box">
+            <img src="c:/Users/vishn/Pictures/Camera Roll/123/WhatsApp Image 2025-03-20 at 19.37.25_6cee90cf.jpg" alt="Memory 2">
+            <div class="caption">🌟Smiles that last forever!🌟</div>
+        </div>
+        <div class="image-box">
+            <img src="c:/Users/vishn/Pictures/Camera Roll/123/WhatsApp Image 2025-03-20 at 19.42.05_550ae4c4.jpg" alt="Memory 3">
+            <div class="caption">💖Moments together! 💖</div>     
+        </div>
+    </div>
+
+    <!-- Next Surprise Button -->
+    <button class="next-button" onclick="window.location.href='cake_surprise.html'">Next Surprise🎂</button>
+
+    <!-- Confetti and Emojis Script -->
+    <script>
+        function createFallingItem() {
+            const item = document.createElement("div");
+            item.classList.add("falling-item");
+            item.style.left = Math.random() * 100 + "vw";
+            item.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+            const types = ["🎉", "🎊", "✨", "🎈", "🎁", "💖", "💝", "🎀", "🥳", "🎂", "🎶", "🎵"];
+            item.textContent = types[Math.floor(Math.random() * types.length)];
+            item.style.fontSize = Math.random() * 30 + 20 + "px";
+
+            document.body.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, 5000);
+        }
+
+        setInterval(createFallingItem, 200);
+    </script>
+</body>
+</html>
