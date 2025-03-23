@@ -70,7 +70,7 @@
     }
     .layer {
       width: 100%;
-      background-color: #8B4513; /* Brown color for cake layer s */
+      background-color: #8B4513; /* Brown color for cake layers */
       border-radius: 10px 10px 0 0;
       box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Softer shadow */
     }
@@ -278,13 +278,36 @@
     <button onclick="showMusicPopup()">Click for Music</button>
   </div>
 
- <!-- Music Pop-up -->
-  <audio controls autoplay>
-  <source src="https://docs.google.com/uc?export=download&id=1fc5tEF2ujEk2RWZvJkEokljAEZkbq7Py">
-  Your browser does not support the audio element.
-</audio>
-</audio>
+  <!-- Friendship Countdown -->
+<div class="countdown-box">
+  <h3>We've been friends for:</h3>
+  <p id="friendshipDays"></p>
+</div>
 
+<script>
+  function calculateFriendshipDays() {
+    const startDate = new Date("2022-11-09"); // Set the date you became friends
+    const today = new Date();
+    const diffTime = today - startDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById("friendshipDays").innerText = diffDays + " days 🎉";
+  }
+  calculateFriendshipDays();
+</script>
+
+<style>
+  .countdown-box {
+    background-color: #facae4;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 300px;
+    margin: 20px auto;
+    box-shadow: 2px 2px 10px rgba(113, 111, 111, 0.2);
+  }
+</style>
 
   <script>
     function blowOutCandle(candle) {
